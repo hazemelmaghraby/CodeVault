@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Lock, Mail, LogIn, Eye, EyeOff } from 'lucide-react';
 import { auth } from './../../constants/database/firebase';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -13,6 +13,21 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Check if the user is already logged in
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                window.location.href = '/profile';
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    // export default AuthRedirect;
+
+
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -24,7 +39,15 @@ export default function Login() {
             console.log('User logged in successfully:', userCredential.user);
             navigate('/dashboard'); // Redirect after successful login
         } catch (authError) {
-            setError(authError.message);
+            // setError(authError.message);
+            switch (authError.code) {
+                case 'auth/invalid-credential':
+                    setError('Invalid Email Or Password.')
+                    break;
+                default:
+                    setError('Error Occured Please Try Again Later.')
+                    break;
+            }
         } finally {
             setLoading(false);
         }
@@ -63,7 +86,7 @@ export default function Login() {
                 </div>
 
                 <form onSubmit={handleLogin} className="space-y-6">
-                    {error && <p className="text-red-400 text-sm">{error}</p>}
+                    {error && <p className="text-red-400 text-lg bg-black border-r-2">{error}</p>}
 
                     <motion.div
                         initial={{ x: -20, opacity: 0 }}

@@ -20,6 +20,14 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore';
 import { auth, db } from './../../constants/database/firebase';
 import { useNavigate } from 'react-router-dom'; // Make sure you export `auth` and `db` from your Firebase config
+import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+
+const icons = [
+    { Icon: Facebook, link: 'https://facebook.com' },
+    { Icon: Twitter, link: 'https://twitter.com' },
+    { Icon: Instagram, link: 'https://instagram.com' },
+    { Icon: Youtube, link: 'https://youtube.com' },
+];
 
 const fadeInUp = {
     initial: { opacity: 0, y: 50 },
@@ -117,9 +125,9 @@ export default function Landing() {
                                 <span className='text-black no-underline'>Start Your Collection</span>
                                 <ChevronRight className="w-5 h-5" />
                             </Link>
-                            <button className="px-8 py-4 glass rounded-lg font-medium hover:bg-black/60 transition-colors text-white">
+                            <a className="px-8 py-4 glass rounded-lg font-medium hover:bg-black/60 transition-colors text-white no-underline cursor-pointer" href='/premium'>
                                 Premium Plans
-                            </button>
+                            </a>
                             {isAdmin && (
                                 <a className="px-8 py-4 glass rounded-lg font-medium hover:bg-black/60 transition-colors text-white no-underline" href='/data'>
                                     View Database
@@ -127,6 +135,8 @@ export default function Landing() {
                             )}
                         </motion.div>
                     </motion.div>
+
+
 
                     {/* Stats Section */}
                     <motion.div
@@ -149,7 +159,10 @@ export default function Landing() {
                             </motion.div>
                         ))}
                     </motion.div>
+
+
                 </motion.div>
+
 
                 {/* Animated Background Elements */}
                 <div className="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
@@ -178,6 +191,8 @@ export default function Landing() {
                     ))}
                 </div>
             </header>
+
+
 
             {/* Features Section */}
             <section className="py-32 px-4 sm:px-6 lg:px-8 relative">
@@ -246,6 +261,77 @@ export default function Landing() {
                                 <p className="text-gray-400">{feature.description}</p>
                             </motion.div>
                         ))}
+                    </div>
+                </motion.div>
+            </section>
+
+            {/* =========================== */}
+
+            <motion.div
+                className="flex justify-center gap-6 mt-10"
+                initial="initial"
+                animate="animate"
+                variants={stagger}
+            >
+                {icons.map(({ Icon, link }, index) => (
+                    <motion.a
+                        key={index}
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="gold-gradient p-4 rounded-full text-black hover:scale-110 transition-transform shadow-lg"
+                        variants={fadeInUp}
+                    >
+                        <Icon className="w-6 h-6" />
+                    </motion.a>
+                ))}
+            </motion.div>
+
+            {/* =========================== */}
+
+            <section className="py-32 px-4 sm:px-6 lg:px-8">
+                <motion.div
+                    className="max-w-4xl mx-auto glass rounded-2xl p-12 text-center relative overflow-hidden"
+                    initial="initial"
+                    whileInView="animate"
+                    variants={fadeInUp}
+                    viewport={{ once: true }}
+                >
+                    <motion.div
+                        className="relative z-10"
+                        variants={stagger}
+                    >
+                        <motion.h2
+                            className="text-4xl md:text-5xl font-bold mb-6 text-white no-underline"
+                            variants={fadeInUp}
+                        >
+                            Upgrade to
+                            <span className="gold-text">Premium Today !</span>
+                        </motion.h2>
+                        <motion.p
+                            className="text-xl text-gray-400 mb-8"
+                            variants={fadeInUp}
+                        >
+                            Join thousands of users discovering new daily rewards
+                        </motion.p>
+                        <motion.div
+                            variants={fadeInUp}
+                        >
+                            <Link
+                                to="/premium"
+                                className="inline-flex items-center px-8 py-4 gold-gradient rounded-lg font-medium hover:opacity-90 transition-opacity text-black no-underline"
+                            >
+                                Discover Premium
+                                <ChevronRight className="w-5 h-5 ml-2" />
+                            </Link>
+                        </motion.div>
+                    </motion.div>
+
+
+                    {/* Background Decorations */}
+                    <div className="absolute inset-0 -z-0">
+                        <div className="absolute top-0 left-0 w-32 h-32 gold-gradient opacity-10 rounded-full blur-3xl"></div>
+                        <div className="absolute bottom-0 right-0 w-32 h-32 gold-gradient opacity-10 rounded-full blur-3xl"></div>
                     </div>
                 </motion.div>
             </section>

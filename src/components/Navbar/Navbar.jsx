@@ -9,6 +9,7 @@ import female from './../../assets/female.png';
 import maleAdmin from './../../assets/maleAdmin.png';
 import femaleAdmin from './../../assets/femaleAdmin.png';
 import defaultImg from './../../assets/default.png';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -16,6 +17,9 @@ export default function Navbar() {
     const [firstname, setFirstName] = useState(null); // State for username
     const [lastname, setLastName] = useState(null); // State for username
     const [profilePic, setProfilePic] = useState(); // State for username
+
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -108,6 +112,7 @@ export default function Navbar() {
         try {
             await signOut(auth);
             console.log('User logged out successfully.');
+            navigate('/login');
             setUsername(null); // Clear username after logout
         } catch (err) {
             console.error('Error during logout:', err.message);
@@ -121,7 +126,7 @@ export default function Navbar() {
                     {/* Left Section */}
                     <div className="flex items-center space-x-2">
                         <Trophy className="w-8 h-8 text-gold-400" />
-                        <span className="text-xl font-bold gold-text">CodeVault</span>
+                        <a className="text-xl font-bold gold-text cursor-pointer" href='/'>CodeVault</a>
                     </div>
 
                     {/* Right Section */}
@@ -157,13 +162,13 @@ export default function Navbar() {
                                             Profile
                                         </Link>
                                         <Link
-                                            to="/profile"
+                                            to="/premium"
                                             className="block px-4 py-2 text-sm text-white hover:bg-gray-700 rounded-md transition-colors no-underline"
                                         >
                                             Pricing
                                         </Link>
                                         <Link
-                                            to="/profile"
+                                            to="/contact"
                                             className="block px-4 py-2 text-sm text-white hover:bg-gray-700 rounded-md transition-colors no-underline"
                                         >
                                             Help Center
