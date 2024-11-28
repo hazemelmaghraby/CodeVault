@@ -13,7 +13,7 @@ import MarketpalceManagement from './components/Admin/MarketpalceManagement.jsx'
 import UnderDev from './constants/components/UnderDev.jsx';
 import SocialMedia from './components/Social/SocialMedia.jsx'
 import AddProduct from './components/Admin/AddProduct/AddProduct.jsx';
-import OurTeam from './components/ourTeam/ourTeam.jsx';
+// import OurTeam from './components/ourTeam/ourTeam.jsx';
 import RemoveProduct from './components/Admin/RemoveProduct/RemoveProduct.jsx';
 
 // import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/productAdd" element={<AddProduct />} />
           <Route path="/productRemove" element={<MarketpalceManagement />} />
           <Route path="/social" element={<SocialMedia />} />
-          <Route path="/ourteam" element={<OurTeam />} />
+          {/* <Route path="/ourteam" element={<OurTeam />} /> */}
           {/* <Route path="/ourTeam" element={<OurTeam />} /> */}
           {/* <Route path="/test" element={<Test />} /> */}
         </Routes>
