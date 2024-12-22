@@ -31,6 +31,8 @@ const stagger = {
 };
 
 export default function PremiumPlans() {
+    document.title = "Premuim";
+
     return (
         <div className="min-h-screen">
             {/* Hero Section */}
@@ -63,7 +65,7 @@ export default function PremiumPlans() {
 
                     {/* Plan Cards */}
                     <motion.div
-                        className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                        className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12"
                         variants={stagger}
                     >
                         {[

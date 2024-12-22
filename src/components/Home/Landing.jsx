@@ -21,6 +21,7 @@ import { getDoc, doc } from 'firebase/firestore';
 import { auth, db } from './../../constants/database/firebase';
 import { useNavigate } from 'react-router-dom'; // Make sure you export `auth` and `db` from your Firebase config
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import Footer from '../Footer/Footer';
 
 const icons = [
     { Icon: Facebook, link: 'https://facebook.com' },
@@ -82,11 +83,22 @@ export default function Landing() {
 
     const navigate = useNavigate();
 
+    const handleStartCollection = (e) => {
+        e.preventDefault();
+
+        // Check the auth state directly
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                navigate('/pro'); // Redirect to market if logged in
+            } else {
+                navigate('/login'); // Redirect to login if not logged in
+            }
+        });
+    };
     return (
         <div className="min-h-screen">
             {/* Hero Section */}
             <header className="relative overflow-hidden min-h-screen flex items-center">
-                <Navbar />
 
                 <motion.div
                     className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
@@ -118,13 +130,13 @@ export default function Landing() {
                             className="flex flex-wrap justify-center gap-4"
                             variants={fadeIn}
                         >
-                            <Link
-                                to="/register"
-                                className="px-8 py-4 gold-gradient rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center space-x-2"
+                            <a
+                                onClick={handleStartCollection}
+                                className="px-8 py-4 gold-gradient rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center space-x-2 cursor-pointer"
                             >
                                 <span className='text-black no-underline'>Start Your Collection</span>
                                 <ChevronRight className="w-5 h-5" />
-                            </Link>
+                            </a>
                             <a className="px-8 py-4 glass rounded-lg font-medium hover:bg-black/60 transition-colors text-white no-underline cursor-pointer" href='/premium'>
                                 Premium Plans
                             </a>
@@ -409,51 +421,8 @@ export default function Landing() {
             </section>
 
             {/* Footer */}
-            <footer className="py-12 px-4 sm:px-6 lg:px-8 glass mt-20 text-white no-underline">
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                        <div className="space-y-4">
-                            <div className="flex items-center space-x-2">
-                                <Trophy className="w-6 h-6 text-gold-400" />
-                                <span className="font-bold gold-text">CodeVault</span>
-                            </div>
-                            <p className="text-sm text-gray-400">Your trusted source for digital rewards and collectibles.</p>
-                        </div>
-                        {[
-                            {
-                                title: "Product",
-                                links: ["Features", "Pricing", "FAQ", "Support"]
-                            },
-                            {
-                                title: "Company",
-                                links: ["About", "Blog", "Careers", "Press"]
-                            },
-                            {
-                                title: "Legal",
-                                links: ["Privacy", "Terms", "Security", "Cookies"]
-                            }
-                        ].map((section, index) => (
-                            <div key={index}>
-                                <h3 className="font-semibold mb-4">{section.title}</h3>
-                                <ul className="space-y-2">
-                                    {section.links.map((link, linkIndex) => (
-                                        <li key={linkIndex}>
-                                            <a href="#" className="text-sm text-gray-400 hover:text-gold-400 transition-colors no-underline">
-                                                {link}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="pt-8 border-t border-gray-800">
-                        <p className="text-sm text-gray-400 text-center">
-                            © 2024 CodeVault. All rights reserved.
-                        </p>
-                    </div>
-                </div>
-            </footer>
         </div>
     );
 }
+
+// 

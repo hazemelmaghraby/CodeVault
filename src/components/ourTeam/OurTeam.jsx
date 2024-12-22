@@ -16,7 +16,7 @@ const cardVariants = {
 
 const OurTeam = () => {
     return (
-        <section className="py-12 bg-gray-900 text-white">
+        <section className="py-12 glass text-white mt-5">
             <div className="max-w-6xl mx-auto text-center">
                 <h2 className="text-3xl font-bold mb-6">Meet Our Team</h2>
                 <p className="text-gray-400 mb-12">
@@ -34,7 +34,7 @@ const OurTeam = () => {
                             transition={{ duration: 0.5, delay: index * 0.2 }}
                         >
                             <img
-                                src={member.image}
+                                src={member.image || 'https://via.placeholder.com/150'}
                                 alt={`${member.name}'s profile`}
                                 className="w-24 h-24 mx-auto rounded-full mb-4 border-2 border-yellow-400"
                             />

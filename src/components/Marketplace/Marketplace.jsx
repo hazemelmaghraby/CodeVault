@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../Navbar/Navbar";
 import { Search, Filter, ChevronDown, ShoppingCart } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
 
 const fadeInUp = {
     initial: { opacity: 0, y: 50 },
@@ -26,6 +27,9 @@ const stagger = {
 export default function Marketplace() {
     const [filter, setFilter] = useState("All");
     const [searchQuery, setSearchQuery] = useState("");
+
+    const cartCount = useSelector((state) => state.cart.value);
+    const dispatch = useDispatch();
 
     const items = [
         {
@@ -53,8 +57,6 @@ export default function Marketplace() {
 
     return (
         <div className="min-h-screen">
-            <Navbar />
-
             <header className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
                 <motion.div
                     initial="initial"

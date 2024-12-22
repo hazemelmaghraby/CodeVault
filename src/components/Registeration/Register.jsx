@@ -18,6 +18,9 @@ export default function Register() {
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
+    document.title = "Registeration";
+
+
 
 
     const capitalizeFirstLetter = (name) => {
@@ -272,7 +275,7 @@ export default function Register() {
                         whileTap={{ scale: 0.98 }}
                         type="submit"
                         disabled={loading}
-                        className="gold-gradient w-full py-3 rounded-lg font-medium text-white transition-all"
+                        className={`gold-gradient w-full py-3 rounded-lg font-medium transition-all ${loading ? 'text-gray-400' : 'text-black'}`}
                     >
                         {loading ? 'Signing Up...' : 'Sign Up'}
                     </motion.button>

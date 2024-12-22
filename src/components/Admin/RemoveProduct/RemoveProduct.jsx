@@ -9,4 +9,4 @@ const RemoveProduct = () => {
     )
 }
 
-export default RemoveProduct
+export default RemoveProduct;

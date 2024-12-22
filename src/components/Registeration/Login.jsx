@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Lock, Mail, LogIn, Eye, EyeOff } from 'lucide-react';
-import { auth } from './../../constants/database/firebase';
+import { auth, db } from './../../constants/database/firebase';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import { getDocs, collection, doc, getDoc, deleteDoc } from 'firebase/firestore';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -12,13 +13,19 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
+    document.title = "Login";
+
+
     const navigate = useNavigate();
 
     useEffect(() => {
         // Check if the user is already logged in
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
-                window.location.href = '/profile';
+                // Set a timeout for redirection
+                setTimeout(() => {
+                    window.location.href = '/profile';
+                }, 1000); // Delay of 2000 milliseconds (2 seconds)
             }
         });
 
@@ -37,7 +44,19 @@ export default function Login() {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log('User logged in successfully:', userCredential.user);
-            navigate('/dashboard'); // Redirect after successful login
+            // Fetch user details from Firestore
+            const userId = userCredential.user.uid; // Get the user ID
+            const userDoc = await getDoc(doc(db, 'users', userId));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                // Store user details in local storage
+                localStorage.setItem('username', userData.username);
+                localStorage.setItem('firstName', userData.firstName);
+                localStorage.setItem('lastName', userData.lastName);
+                localStorage.setItem('email', userData.email);
+                localStorage.setItem('gender', userData.gender);
+            }
+            // navigate('/dashboard'); // Redirect after successful login
         } catch (authError) {
             // setError(authError.message);
             switch (authError.code) {
@@ -52,6 +71,7 @@ export default function Login() {
             setLoading(false);
         }
     };
+
 
     const handleLogOut = async () => {
         try {
@@ -140,7 +160,7 @@ export default function Login() {
                         whileTap={{ scale: 0.98 }}
                         type="submit"
                         disabled={loading}
-                        className="gold-gradient w-full py-3 rounded-lg font-medium text-white transition-all"
+                        className={`gold-gradient w-full py-3 rounded-lg font-medium transition-all ${loading ? 'text-gray-400' : 'text-black'}`}
                     >
                         {loading ? 'Signing In...' : 'Sign In'}
                     </motion.button>

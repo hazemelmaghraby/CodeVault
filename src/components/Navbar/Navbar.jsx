@@ -10,6 +10,10 @@ import maleAdmin from './../../assets/maleAdmin.png';
 import femaleAdmin from './../../assets/femaleAdmin.png';
 import defaultImg from './../../assets/default.png';
 import { useNavigate } from 'react-router-dom';
+import { ShoppingCart, Bell } from 'lucide-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCart } from '../../app/Slices/cartSlice';
+
 import './Navbar.css';
 
 export default function Navbar() {
@@ -17,9 +21,16 @@ export default function Navbar() {
     const [firstname, setFirstName] = useState(null); // State for username
     const [lastname, setLastName] = useState(null); // State for username
     const [profilePic, setProfilePic] = useState(); // State for username
-
+    // const [cartCount, setCartCount] = useState(0); // State for cart count
+    const [notificationCount, setNotificationCount] = useState(0); // State for cart count
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart.items);
+    const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+
+
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -33,13 +44,17 @@ export default function Navbar() {
                         setFirstName(userData.firstName || 'User');
                         setLastName(userData.lastName || 'User');
                         if (userData.isAdmin) {
-                            setProfilePic(userData.gender?.toLowerCase() === 'male' ? maleAdmin : femaleAdmin);
+                            setProfilePic(userData.gender === 'Male' ? maleAdmin : femaleAdmin);
                         } else {
-                            setProfilePic(userData.gender?.toLowerCase() === 'male' ? male : female);
+                            setProfilePic(userData.gender === 'Male' ? male : female);
                         }
-                        // setUserGender(userData.gender)
-                        // }else if(userDoc.exists() && userData.isAdmin) {
-                        //     setUserGender(userData.gender)
+
+                        // Fetch cart data from Firestore
+                        const cartRef = doc(db, 'cart', user.uid);
+                        const cartDoc = await getDoc(cartRef);
+                        if (cartDoc.exists()) {
+                            dispatch(setCart(cartDoc.data().items));
+                        }
                     } else {
                         console.log('No user document found in Firestore.');
                     }
@@ -49,29 +64,65 @@ export default function Navbar() {
             } else {
                 console.log('No user is signed in.');
                 setUsername(null);
-                setFirstName(null);
-                setLastName(null);
-                setProfilePic(defaultImg); // Reset to default image on logout
+                dispatch(setCart([])); // Clear cart if no user is signed in
             }
         });
 
-        // useEffect(() => {
-        //     const 
-        //     try {
-        //         const userDoc = await getDoc(doc(db, 'users', user.uid));
-        //         if (userDoc.exists()) {
-
-        //         }
-
-        //     } catch (err) {
-
-        //     }
-
-        // }, [])
-
         // Cleanup listener on component unmount
         return () => unsubscribe();
-    }, []);
+    }, [dispatch]);
+
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    //         if (user) {
+    //             try {
+    //                 // Fetch user data from Firestore
+    //                 const userDoc = await getDoc(doc(db, 'users', user.uid));
+    //                 if (userDoc.exists()) {
+    //                     const userData = userDoc.data();
+    //                     setUsername(userData.username || 'User');
+    //                     setFirstName(userData.firstName || 'User');
+    //                     setLastName(userData.lastName || 'User');
+    //                     if (userData.isAdmin) {
+    //                         setProfilePic(userData.gender?.toLowerCase() === 'male' ? maleAdmin : femaleAdmin);
+    //                     } else {
+    //                         setProfilePic(userData.gender?.toLowerCase() === 'male' ? male : female);
+    //                     }
+    //                     // setUserGender(userData.gender)
+    //                     // }else if(userDoc.exists() && userData.isAdmin) {
+    //                     //     setUserGender(userData.gender)
+    //                 } else {
+    //                     console.log('No user document found in Firestore.');
+    //                 }
+    //             } catch (error) {
+    //                 console.error('Error fetching user data from Firestore:', error);
+    //             }
+    //         } else {
+    //             console.log('No user is signed in.');
+    //             setUsername(null);
+    //             setFirstName(null);
+    //             setLastName(null);
+    //             setProfilePic(defaultImg); // Reset to default image on logout
+    //         }
+    //     });
+
+    //     // useEffect(() => {
+    //     //     const 
+    //     //     try {
+    //     //         const userDoc = await getDoc(doc(db, 'users', user.uid));
+    //     //         if (userDoc.exists()) {
+
+    //     //         }
+
+    //     //     } catch (err) {
+
+    //     //     }
+
+    //     // }, [])
+
+    //     // Cleanup listener on component unmount
+    //     return () => unsubscribe();
+    // }, []);
 
     // const profilePic = userGender === 'female' ? female : male;
 
@@ -113,11 +164,18 @@ export default function Navbar() {
             await signOut(auth);
             console.log('User logged out successfully.');
             navigate('/login');
+            localStorage.clear();
             setUsername(null); // Clear username after logout
         } catch (err) {
             console.error('Error during logout:', err.message);
         }
     };
+
+    const handleCartClicking = () => {
+        window.location.href = ('/cart');
+    }
+
+
 
     return (
         <nav className="absolute top-0 w-full z-50 glass">
@@ -131,6 +189,24 @@ export default function Navbar() {
 
                     {/* Right Section */}
                     <div className="flex items-center space-x-4">
+                        {/* Cart */}
+                        <div className="relative cart cursor-pointer hover:text-gold-200 flex">
+                            <ShoppingCart className="text-white mr-2" onClick={handleCartClicking} /> {/* Use a CSS class instead */}
+
+                            {cartCount > 0 && (
+                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </div>
+                        <div className='relative notifications cursor-pointer hover:text-gold-200 flex'>
+                            <Bell className='text-white' />
+
+                            <span className="absolute bottom-4 right-0 bg-gold-500 text-black text-xs rounded-full px-1">
+                                {notificationCount}
+                            </span>
+                        </div>
+
                         {username ? (
                             // If user is signed in, show username dropdown
                             // Dropdown for signed-in user

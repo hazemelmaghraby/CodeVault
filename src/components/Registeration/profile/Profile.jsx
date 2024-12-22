@@ -10,6 +10,7 @@ import maleAdmin from './../../../assets/maleAdmin.png';
 import femaleAdmin from './../../../assets/femaleAdmin.png';
 import defaultImg from './../../../assets/default.png';
 import './profile.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
     const [user, setUser] = useState(null);
@@ -20,6 +21,13 @@ export default function Profile() {
     const [createdAt, setCreatedAt] = useState(); // State for username   // const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [profilePic, setProfilePic] = useState();
+
+    document.title = "Profile";
+
+
+    const loginRedirect = () => {
+        window.location.href = '/login';
+    }
 
     useEffect(() => {
         // Fetch the signed-in user's data
@@ -42,9 +50,9 @@ export default function Profile() {
                         setCreatedAt('Unknown'); // Fallback if no createdAt is present
                     }
                     if (userData.isAdmin) {
-                        setProfilePic(userData.gender === 'male' ? femaleAdmin : maleAdmin);
+                        setProfilePic(userData.gender === 'Male' ? maleAdmin : femaleAdmin);
                     } else {
-                        setProfilePic(userData.gender === 'male' ? female : male);
+                        setProfilePic(userData.gender === 'Male' ? male : female);
                     }
                     // setUserGender(userData.gender)
                     // }else if(userDoc.exists() && userData.isAdmin) {
@@ -66,9 +74,26 @@ export default function Profile() {
         </div>
     }
 
-    // if (!userData) {
-    //     return <div className="text-center text-white">No user data found.</div>;
-    // }
+    if (!user) {
+        return (
+            <div className='glass flex flex-col items-center justify-center'>
+                <motion.div
+                    className="not-authorized p-4 mt-24 text-center rounded shadow-lg w-100 flex justify-center items-center"
+                    style={{ height: '10vh', width: '100%' }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <h2 className="text-gold-300">Please Login To View Your Profile.</h2>
+                </motion.div>
+
+                <button onClick={loginRedirect} className="gold-gradient px-6 py-3 rounded-lg font-medium text-black mb-5 flex justify-center items-center">
+                    Login
+                </button>
+            </div>
+        );
+    }
+
 
     // const { firstName, lastName, email, gender, isAdmin, createdAt, username } = userData;
 

@@ -11,6 +11,9 @@ const ShowData = () => {
     const [isAdmin, setIsAdmin] = useState(false); // Store if the current user is an admin
     const userDataRef = collection(db, 'users'); // Reference to the 'users' collection
 
+    document.title = "Users Database"; // Set the document title
+
+
     // Fetch all user data from Firestore
     const getUserCreds = async () => {
         try {

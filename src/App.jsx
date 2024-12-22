@@ -13,8 +13,14 @@ import MarketpalceManagement from './components/Admin/MarketpalceManagement.jsx'
 import UnderDev from './constants/components/UnderDev.jsx';
 import SocialMedia from './components/Social/SocialMedia.jsx'
 import AddProduct from './components/Admin/AddProduct/AddProduct.jsx';
-// import OurTeam from './components/ourTeam/ourTeam.jsx';
+import Contact from './Contact/Contact.jsx';
+import OurTeam from './components/ourTeam/ourTeam.jsx';
 import RemoveProduct from './components/Admin/RemoveProduct/RemoveProduct.jsx';
+import ProductsList from './components/Marketplace/ProductsList.jsx';
+import TestFirestore from './components/Marketplace/Local.jsx';
+import Footer from './components/Footer/Footer.jsx';
+import Cart from './components/Marketplace/Cart/Cart.jsx';
+import AddProductTest from './components/Admin/AddProduct/AddProductTest.jsx';
 
 // import { SpeedInsights } from "@vercel/speed-insights/next"
 // import Test from './components/Home/test.jsx';
@@ -37,10 +43,16 @@ const App = () => {
           <Route path="/productAdd" element={<AddProduct />} />
           <Route path="/productRemove" element={<MarketpalceManagement />} />
           <Route path="/social" element={<SocialMedia />} />
-          {/* <Route path="/ourteam" element={<OurTeam />} /> */}
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/pro" element={<ProductsList />} />
+          <Route path="/testt" element={<TestFirestore />} />
+          <Route path="/ourteam" element={<OurTeam />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/testing" element={<AddProductTest />} />
           {/* <Route path="/ourTeam" element={<OurTeam />} /> */}
           {/* <Route path="/test" element={<Test />} /> */}
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

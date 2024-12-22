@@ -12,3 +12,11 @@
         transform: translateY(0);
     }
 }
+
+.cart:hover:nth-child(1) .text-white {
+    color: gold !important; /* Change to your desired hover color */
+}
+
+.notifications:hover .text-white{
+    color:gold !important;
+}
