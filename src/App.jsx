@@ -14,14 +14,15 @@ import MarketpalceManagement from './components/Admin/MarketpalceManagement.jsx'
 import UnderDev from './constants/components/UnderDev.jsx';
 import SocialMedia from './components/Social/SocialMedia.jsx'
 import AddProduct from './components/Admin/AddProduct/AddProduct.jsx';
-import Contact from './Contact/Contact.jsx';
-import OurTeam from './components/ourTeam/OurTeam.jsx';
 import RemoveProduct from './components/Admin/RemoveProduct/RemoveProduct.jsx';
+import Contact from './components/Contact/Contact.jsx';
+import OurTeam from './components/ourTeam/OurTeam.jsx';
 import ProductsList from './components/Marketplace/ProductsList.jsx';
 import TestFirestore from './components/Marketplace/Local.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Cart from './components/Marketplace/Cart/Cart.jsx';
 import AddProductTest from './components/Admin/AddProduct/AddProductTest.jsx';
+import AdminDashboard from './components/Admin/dashboard/AdminDashboard.jsx';
 
 // import { SpeedInsights } from "@vercel/speed-insights/next"
 // import Test from './components/Home/test.jsx';
@@ -45,18 +46,20 @@ const App = () => {
         <Route index element={<Landing />}></Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/data" element={<ShowData />} />
+        <Route path="admin/dashboard/usersData" element={<ShowData />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/premium" element={<PremiumPlans />} />
         <Route path="/market" element={<Marketplace />} />
         <Route path="/marketManage" element={<MarketpalceManagement />} />
-        <Route path="/productAdd" element={<AddProduct />} />
-        <Route path="/productRemove" element={<MarketpalceManagement />} />
+        <Route path="/admin/dashboard/productAdd" element={<AddProduct />} />
+        <Route path="/admin/dashboard/productRemove" element={<RemoveProduct />} />
+        <Route path="/underDev" element={<UnderDev />} />
         <Route path="/social" element={<SocialMedia />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/pro" element={<ProductsList />} />
         <Route path="/testt" element={<TestFirestore />} />
         <Route path="/ourteam" element={<OurTeam />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         <Route path='/cart' element={<Cart />}></Route>
       </Route>

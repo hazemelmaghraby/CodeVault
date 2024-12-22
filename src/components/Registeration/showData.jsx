@@ -75,7 +75,7 @@ const ShowData = () => {
                     const userDoc = await getDoc(doc(db, 'users', user.uid));
                     if (userDoc.exists()) {
                         const userData = userDoc.data();
-                        setUsername(userData.username || 'No username found');
+                        setUsername(userData.firstName || 'No username found');
                         console.log(`USERNAME: ${userData.username}`);
                         console.log(`GENDER: ${userData.gender}`);
                         console.log(`MAIL: ${userData.email}`);

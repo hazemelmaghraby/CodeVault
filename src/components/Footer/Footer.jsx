@@ -16,15 +16,30 @@ const Footer = () => {
                     {[
                         {
                             title: "Product",
-                            links: ["Features", "Pricing", "FAQ", "Support"]
+                            links: [
+                                { label: "Features", url: "/features" },
+                                { label: "Pricing", url: "/premium" },
+                                { label: "FAQ", url: "/faq" },
+                                { label: "Support", url: "/contact" }
+                            ]
                         },
                         {
                             title: "Company",
-                            links: ["About", "Blog", "Careers", "Press"]
+                            links: [
+                                { label: "About", url: "/about" },
+                                { label: "Blog", url: "/underDev" },
+                                { label: "Careers", url: "/underDev" },
+                                { label: "Team", url: "/ourteam" }
+                            ]
                         },
                         {
                             title: "Legal",
-                            links: ["Privacy", "Terms", "Security", "Cookies"]
+                            links: [
+                                { label: "Privacy", url: "/undevDev" },
+                                { label: "Terms", url: "/underDev" },
+                                { label: "Security", url: "/underDev" },
+                                { label: "Cookies", url: "/underDev" }
+                            ]
                         }
                     ].map((section, index) => (
                         <div key={index}>
@@ -32,18 +47,22 @@ const Footer = () => {
                             <ul className="space-y-2">
                                 {section.links.map((link, linkIndex) => (
                                     <li key={linkIndex}>
-                                        <a href="#" className="text-sm text-gray-400 hover:text-gold-400 transition-colors no-underline">
-                                            {link}
+                                        <a
+                                            href={link.url}
+                                            className="text-sm text-gray-400 hover:text-gold-400 transition-colors no-underline"
+                                        >
+                                            {link.label}
                                         </a>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                     ))}
+
                 </div>
                 <div className="pt-8 border-t border-gray-800">
                     <p className="text-sm text-gray-400 text-center">
-                        © 2024 CodeVault. All rights reserved to <span className='glass3 gold-text p-2'>Hazem Elmaghraby</span>
+                        © 2024 CodeVault. All rights reserved to <span className='glass3 gold-text p-2 cursor-pointer'>Hazem Elmaghraby</span>
                     </p>
                 </div>
             </div>

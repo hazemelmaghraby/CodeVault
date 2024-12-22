@@ -56,3 +56,7 @@
 .gold-button {
   @apply gold-gradient hover:from-yellow-600 hover:via-amber-600 hover:to-yellow-700;
 }
+
+.base-comp {
+  @apply relative py-32 px-4 sm:px-6 lg:px-8;
+}

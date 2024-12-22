@@ -141,8 +141,8 @@ export default function Landing() {
                                 Premium Plans
                             </a>
                             {isAdmin && (
-                                <a className="px-8 py-4 glass rounded-lg font-medium hover:bg-black/60 transition-colors text-white no-underline" href='/data'>
-                                    View Database
+                                <a className="px-8 py-4 glass rounded-lg font-medium hover:bg-black/60 transition-colors text-white no-underline" href='/admin/dashboard'>
+                                    Admin Dashboard
                                 </a>
                             )}
                         </motion.div>
