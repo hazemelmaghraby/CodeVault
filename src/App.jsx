@@ -14,7 +14,7 @@ import UnderDev from './constants/components/UnderDev.jsx';
 import SocialMedia from './components/Social/SocialMedia.jsx'
 import AddProduct from './components/Admin/AddProduct/AddProduct.jsx';
 import Contact from './Contact/Contact.jsx';
-import OurTeam from './components/ourTeam/ourTeam.jsx';
+import OurTeam from './components/ourTeam/OurTeam.jsx';
 import RemoveProduct from './components/Admin/RemoveProduct/RemoveProduct.jsx';
 import ProductsList from './components/Marketplace/ProductsList.jsx';
 import TestFirestore from './components/Marketplace/Local.jsx';
