@@ -24,6 +24,7 @@ import Cart from './components/Marketplace/Cart/Cart.jsx';
 import AddProductTest from './components/Admin/AddProduct/AddProductTest.jsx';
 import AdminDashboard from './components/Admin/dashboard/AdminDashboard.jsx';
 import NotFound from './constants/components/NotFound.jsx';
+import DummyDataProducts from './components/Marketplace/DummyDataProducts.jsx';
 
 // import { SpeedInsights } from "@vercel/speed-insights/next"
 // import Test from './components/Home/test.jsx';
@@ -62,6 +63,7 @@ const App = () => {
         <Route path="/ourteam" element={<OurTeam />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="dummyData" element={<DummyDataProducts />} />
 
         <Route path='/cart' element={<Cart />}></Route>
       </Route>

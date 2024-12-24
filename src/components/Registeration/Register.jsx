@@ -91,6 +91,10 @@ export default function Register() {
                     isAdmin: false,
                 });
 
+                localStorage.setItem('username', username);
+                localStorage.setItem('firstName', firstName);
+                localStorage.setItem('lastName', lastName);
+                localStorage.setItem('gender', gender);
                 navigate('/profile');
             } catch (firestoreError) {
                 // Step 4: Rollback Authentication if Firestore fails

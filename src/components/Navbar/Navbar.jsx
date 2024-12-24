@@ -173,6 +173,7 @@ export default function Navbar() {
 
     const handleCartClicking = () => {
         window.location.href = ('/cart');
+        // navigate('/cart');
     }
 
 

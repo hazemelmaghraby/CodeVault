@@ -61,7 +61,7 @@ const Cart = () => {
     return (
         <div className="container mx-auto mt-20">
             {loggedIn ? (
-                <div className="flex flex-col md:flex-row">
+                <div className="flex flex-col md:flex-row" key={cartItems.id}>
                     <div className="w-full md:w-2/3 p-4">
                         {cartItems.length === 0 ? (
                             <div className="flex flex-col items-center justify-center text-center bg-black/60 p-8 rounded-lg shadow-lg text-white space-y-4">

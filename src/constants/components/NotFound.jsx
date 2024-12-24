@@ -42,19 +42,21 @@ const NotFound = () => {
                     <p className="text-lg text-gray-400 mb-8">
                         The page you are looking for does not exist. Please check the URL or report the issue to us
                     </p>
-                    <a
-                        href="/contact"
-                        className="gold-gradient px-6 py-3 rounded-lg font-medium text-black no-underline mr-5"
-                    >
-                        Report Issue
-                    </a>
+                    <div className="btns flex justify-center sm:block sm:items-center">
+                        <a
+                            href="/contact"
+                            className="gold-gradient px-6 py-3 rounded-lg font-medium text-black no-underline mr-4 mb-4 sm:mb-0"
+                        >
+                            Report Issue
+                        </a>
 
-                    <a
-                        href="/"
-                        className="gold-gradient px-6 py-3 rounded-lg font-medium text-black no-underline"
-                    >
-                        Go Back to Homepage
-                    </a>
+                        <a
+                            href="/"
+                            className="gold-gradient px-6 py-3 rounded-lg font-medium text-black no-underline sm:ml-4"
+                        >
+                            Go Back to Homepage
+                        </a>
+                    </div>
                 </motion.div>
             </div>
         </>
